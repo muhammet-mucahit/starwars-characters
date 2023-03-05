@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="mb-3">{{ filename }}</h2>
+
+        <div class="container">
+            {% for header in headers %}
+                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{ header }}" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined-{{ header }}">{{ header }}</label>
+            {% endfor %}
+        </div>
+
+        <table class="table table-striped mt-3">
+            <thead class="bg-primary bg-opacity-25">
+            <tr>
+                {% for header in headers %}
+                    <th class="text-primary small" scope="col">{{ header }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for field in row %}
+                        <td class="small">{{ field }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'characters:collections-detail' pk=collection.pk %}?data_size={{ load_more_data_size }}"
+           class="btn btn-outline-primary">
+            Load More
+        </a>
+    </div>
+{% endblock %}
